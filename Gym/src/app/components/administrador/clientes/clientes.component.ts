@@ -7,4 +7,7 @@ import { Component } from '@angular/core';
 })
 export class ClientesComponent {
 
+  clientes: any[] = [];
+  clientesSeleccionados: any[] = [];
+  loading: boolean = false;
 }

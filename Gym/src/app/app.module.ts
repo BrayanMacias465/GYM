@@ -10,6 +10,9 @@ import { CommonModule } from '@angular/common';
 import { ClientesComponent } from './components/administrador/clientes/clientes.component';
 import { EntrenadorComponent } from './components/administrador/entrenador/entrenador.component';
 
+import { TableModule } from 'primeng/table';
+import { InputTextModule } from 'primeng/inputtext';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +25,9 @@ import { EntrenadorComponent } from './components/administrador/entrenador/entre
   imports: [
     BrowserModule,
     AppRoutingModule,
-    CommonModule
+    CommonModule,
+    TableModule,
+    InputTextModule
   ],
   providers: [],
   bootstrap: [AppComponent]
