@@ -187,20 +187,20 @@
     <div class="tab-class">
         <ul class="nav nav-pills justify-content-center mb-4">
             <li class="nav-item">
-                <a class="nav-link active" data-toggle="pill" (click)="showAll()">Todas las clases</a>
+                <a class="nav-link" style="cursor: pointer" data-toggle="pill" [ngClass]="{'active': all}" (click)="showAll()">Todas las clases</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" (click)="showCardio()" >Cardio</a>
+                <a class="nav-link" style="cursor: pointer" data-toggle="pill" [ngClass]="{'active': cardio}" (click)="showCardio()" >Cardio</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#class-crossfit">Crossfit</a>
+                <a class="nav-link" style="cursor: pointer" data-toggle="pill" [ngClass]="{'active': crossfit}" (click)="showCrossfit()">Crossfit</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#class-powerlifting">Levantamiento de pesas</a>
+                <a class="nav-link" style="cursor: pointer" data-toggle="pill" [ngClass]="{'active': powerlifting}" (click)="showPowerlifting()">Levantamiento de pesas</a>
             </li>
         </ul>
         <div class="tab-content">
-            <div id="class-all" [ngClass]="{'active': all, 'fade': !all}" class="container tab-pane p-0">
+            <div id="class-all"  class="container active tab-pane p-0">
                 <div class="table-responsive">
                     <table class="table table-bordered table-lg m-0">
                         <thead class="bg-secondary text-white text-center">
@@ -218,222 +218,42 @@
                         <tbody class="text-center">
                             <tr>
                                 <th class="bg-secondary text-white align-middle">6.00am - 8.00am</th>
-                                <td><h5>Cardio</h5>John Deo</td>
+                                <td [ngClass]="{'bg-primary text-white': cardio}"><h5 [ngClass]="{'text-white': cardio}">Cardio</h5>John Deo</td>
                                 <td></td>
-                                <td><h5>Crossfit</h5>Adam Phillips</td>
+                                <td [ngClass]="{'bg-primary text-white': crossfit}"><h5 [ngClass]="{'text-white': crossfit}">Crossfit</h5>Adam Phillips</td>
                                 <td></td>
-                                <td><h5>Power Lifting</h5>James Alien</td>
+                                <td [ngClass]="{'bg-primary text-white': powerlifting}"><h5 [ngClass]="{'text-white': powerlifting}">Power Lifting</h5>James Alien</td>
                                 <td></td>
-                                <td><h5>Cardio</h5>John Deo</td>
+                                <td [ngClass]="{'bg-primary text-white': cardio}"><h5 [ngClass]="{'text-white': cardio}">Cardio</h5>John Deo</td>
                             </tr>
                             <tr>
                                 <th class="bg-secondary text-white align-middle">10.00am - 12.00am</th>
                                 <td></td>
-                                <td><h5>Power Lifting</h5>James Alien</td>
+                                <td [ngClass]="{'bg-primary text-white': powerlifting}"><h5 [ngClass]="{'text-white': powerlifting}">Power Lifting</h5>James Alien</td>
                                 <td></td>
-                                <td><h5>Cardio</h5>John Deo</td>
+                                <td [ngClass]="{'bg-primary text-white': cardio}"><h5 [ngClass]="{'text-white': cardio}">Cardio</h5>John Deo</td>
                                 <td></td>
-                                <td><h5>Crossfit</h5>Adam Phillips</td>
+                                <td [ngClass]="{'bg-primary text-white': crossfit}"><h5 [ngClass]="{'text-white': crossfit}">Crossfit</h5>Adam Phillips</td>
                                 <td></td>
                             </tr>
                             <tr>
                                 <th class="bg-secondary text-white align-middle">5.00pm - 7.00pm</th>
-                                <td><h5>Crossfit</h5>Adam Phillips</td>
+                                <td [ngClass]="{'bg-primary text-white': crossfit}"><h5 [ngClass]="{'text-white': crossfit}">Crossfit</h5>Adam Phillips</td>
                                 <td></td>
-                                <td><h5>Power Lifting</h5>James Alien</td>
+                                <td [ngClass]="{'bg-primary text-white': powerlifting}"><h5 [ngClass]="{'text-white': powerlifting}">Power Lifting</h5>James Alien</td>
                                 <td></td>
-                                <td><h5>Cardio</h5>John Deo</td>
+                                <td [ngClass]="{'bg-primary text-white': cardio}"><h5 [ngClass]="{'text-white': cardio}">Cardio</h5>John Deo</td>
                                 <td></td>
-                                <td><h5>Crossfit</h5>Adam Phillips</td>
+                                <td [ngClass]="{'bg-primary text-white': crossfit}"><h5 [ngClass]="{'text-white': crossfit}">Crossfit</h5>Adam Phillips</td>
                             </tr>
                             <tr>
                                 <th class="bg-secondary text-white align-middle">7.00pm - 9.00pm</th>
                                 <td></td>
-                                <td><h5>Cardio</h5>John Deo</td>
+                                <td [ngClass]="{'bg-primary text-white': cardio}"><h5 [ngClass]="{'text-white': cardio}">Cardio</h5>John Deo</td>
                                 <td></td>
-                                <td><h5>Crossfit</h5>Adam Phillips</td>
+                                <td [ngClass]="{'bg-primary text-white': crossfit}"><h5 [ngClass]="{'text-white': crossfit}">Crossfit</h5>Adam Phillips</td>
                                 <td></td>
-                                <td><h5>Power Lifting</h5>James Alien</td>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div id="class-cardio" [ngClass]="{'active': cardio, 'fade': !cardio}" class="container tab-pane p-0">
-                <div class="table-responsive">
-                    <table class="table table-bordered table-lg m-0">
-                        <thead class="bg-secondary text-white text-center">
-                            <tr>
-                                <th>Time</th>
-                                <th>Monday</th>
-                                <th>Tuesday</th>
-                                <th>Wednesday</th>
-                                <th>Thursday</th>
-                                <th>Friday</th>
-                                <th>Saturday</th>
-                                <th>Sunday</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-center">
-                            <tr>
-                                <th class="bg-secondary text-white align-middle">6.00am - 8.00am</th>
-                                <td class="bg-primary text-white"><h5 class="text-white">Cardio</h5>John Deo</td>
-                                <td></td>
-                                <td><h5>Crossfit</h5>Adam Phillips</td>
-                                <td></td>
-                                <td><h5>Power Lifting</h5>James Alien</td>
-                                <td></td>
-                                <td class="bg-primary text-white"><h5 class="text-white">Cardio</h5>John Deo</td>
-                            </tr>
-                            <tr>
-                                <th class="bg-secondary text-white align-middle">10.00am - 12.00am</th>
-                                <td></td>
-                                <td><h5>Power Lifting</h5>James Alien</td>
-                                <td></td>
-                                <td class="bg-primary text-white"><h5 class="text-white">Cardio</h5>John Deo</td>
-                                <td></td>
-                                <td><h5>Crossfit</h5>Adam Phillips</td>
-                                <td></td> 
-                            </tr>
-                            <tr>
-                                <th class="bg-secondary text-white align-middle">5.00pm - 7.00pm</th>
-                                <td><h5>Crossfit</h5>Adam Phillips</td>
-                                <td></td>
-                                <td><h5>Power Lifting</h5>James Alien</td>
-                                <td></td>
-                                <td class="bg-primary text-white"><h5 class="text-white">Cardio</h5>John Deo</td>
-                                <td></td>
-                                <td><h5>Crossfit</h5>Adam Phillips</td>
-                            </tr>
-                            <tr>
-                                <th class="bg-secondary text-white align-middle">7.00pm - 9.00pm</th>
-                                <td></td>
-                                <td class="bg-primary text-white"><h5 class="text-white">Cardio</h5>John Deo</td>
-                                <td></td>
-                                <td><h5>Crossfit</h5>Adam Phillips</td>
-                                <td></td>
-                                <td><h5>Power Lifting</h5>James Alien</td>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div id="class-crossfit" class="container tab-pane fade p-0">
-                <div class="table-responsive">
-                    <table class="table table-bordered table-lg m-0">
-                        <thead class="bg-secondary text-white text-center">
-                            <tr>
-                                <th>Time</th>
-                                <th>Monday</th>
-                                <th>Tuesday</th>
-                                <th>Wednesday</th>
-                                <th>Thursday</th>
-                                <th>Friday</th>
-                                <th>Saturday</th>
-                                <th>Sunday</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-center">
-                            <tr>
-                                <th class="bg-secondary text-white align-middle">6.00am - 8.00am</th>
-                                <td><h5>Cardio</h5>John Deo</td>
-                                <td></td>
-                                <td class="bg-primary text-white"><h5 class="text-white">Crossfit</h5>Adam Phillips</td>
-                                <td></td>
-                                <td><h5>Power Lifting</h5>James Alien</td>
-                                <td></td>
-                                <td><h5>Cardio</h5>John Deo</td>
-                            </tr>
-                            <tr>
-                                <th class="bg-secondary text-white align-middle">10.00am - 12.00am</th>
-                                <td></td>
-                                <td><h5>Power Lifting</h5>James Alien</td>
-                                <td></td>
-                                <td><h5>Cardio</h5>John Deo</td>
-                                <td></td>
-                                <td class="bg-primary text-white"><h5 class="text-white">Crossfit</h5>Adam Phillips</td>
-                                <td></td> 
-                            </tr>
-                            <tr>
-                                <th class="bg-secondary text-white align-middle">5.00pm - 7.00pm</th>
-                                <td class="bg-primary text-white"><h5 class="text-white">Crossfit</h5>Adam Phillips</td>
-                                <td></td>
-                                <td><h5>Power Lifting</h5>James Alien</td>
-                                <td></td>
-                                <td><h5>Cardio</h5>John Deo</td>
-                                <td></td>
-                                <td class="bg-primary text-white"><h5 class="text-white">Crossfit</h5>Adam Phillips</td>
-                            </tr>
-                            <tr>
-                                <th class="bg-secondary text-white align-middle">7.00pm - 9.00pm</th>
-                                <td></td>
-                                <td><h5>Cardio</h5>John Deo</td>
-                                <td></td>
-                                <td class="bg-primary text-white"><h5 class="text-white">Crossfit</h5>Adam Phillips</td>
-                                <td></td>
-                                <td><h5>Power Lifting</h5>James Alien</td>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div id="class-powerlifting" class="container tab-pane fade p-0">
-                <div class="table-responsive">
-                    <table class="table table-bordered table-lg m-0">
-                        <thead class="bg-secondary text-white text-center">
-                            <tr>
-                                <th>Time</th>
-                                <th>Monday</th>
-                                <th>Tuesday</th>
-                                <th>Wednesday</th>
-                                <th>Thursday</th>
-                                <th>Friday</th>
-                                <th>Saturday</th>
-                                <th>Sunday</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-center">
-                            <tr>
-                                <th class="bg-secondary text-white align-middle">6.00am - 8.00am</th>
-                                <td><h5>Cardio</h5>John Deo</td>
-                                <td></td>
-                                <td><h5>Crossfit</h5>Adam Phillips</td>
-                                <td></td>
-                                <td class="bg-primary text-white"><h5 class="text-white">Power Lifting</h5>James Alien</td>
-                                <td></td>
-                                <td><h5>Cardio</h5>John Deo</td>
-                            </tr>
-                            <tr>
-                                <th class="bg-secondary text-white align-middle">10.00am - 12.00am</th>
-                                <td></td>
-                                <td class="bg-primary text-white"><h5 class="text-white">Power Lifting</h5>James Alien</td>
-                                <td></td>
-                                <td><h5>Cardio</h5>John Deo</td>
-                                <td></td>
-                                <td><h5>Crossfit</h5>Adam Phillips</td>
-                                <td></td> 
-                            </tr>
-                            <tr>
-                                <th class="bg-secondary text-white align-middle">5.00pm - 7.00pm</th>
-                                <td><h5>Crossfit</h5>Adam Phillips</td>
-                                <td></td>
-                                <td class="bg-primary text-white"><h5 class="text-white">Power Lifting</h5>James Alien</td>
-                                <td></td>
-                                <td><h5>Cardio</h5>John Deo</td>
-                                <td></td>
-                                <td><h5>Crossfit</h5>Adam Phillips</td>
-                            </tr>
-                            <tr>
-                                <th class="bg-secondary text-white align-middle">7.00pm - 9.00pm</th>
-                                <td></td>
-                                <td><h5>Cardio</h5>John Deo</td>
-                                <td></td>
-                                <td><h5>Crossfit</h5>Adam Phillips</td>
-                                <td></td>
-                                <td class="bg-primary text-white"><h5 class="text-white">Power Lifting</h5>James Alien</td>
+                                <td [ngClass]="{'bg-primary text-white': powerlifting}"><h5 [ngClass]="{'text-white': powerlifting}">Power Lifting</h5>James Alien</td>
                                 <td></td>
                             </tr>
                         </tbody>
