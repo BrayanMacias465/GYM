@@ -187,10 +187,10 @@
     <div class="tab-class">
         <ul class="nav nav-pills justify-content-center mb-4">
             <li class="nav-item">
-                <a class="nav-link active" data-toggle="pill" href="#class-all">Todas las clases</a>
+                <a class="nav-link active" data-toggle="pill" (click)="showAll()">Todas las clases</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="pill" href="#class-cardio">Cardio</a>
+                <a class="nav-link" data-toggle="pill" (click)="showCardio()" >Cardio</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" data-toggle="pill" href="#class-crossfit">Crossfit</a>
@@ -200,7 +200,7 @@
             </li>
         </ul>
         <div class="tab-content">
-            <div id="class-all" class="container tab-pane p-0 active">
+            <div id="class-all" [ngClass]="{'active': all, 'fade': !all}" class="container tab-pane p-0">
                 <div class="table-responsive">
                     <table class="table table-bordered table-lg m-0">
                         <thead class="bg-secondary text-white text-center">
@@ -260,7 +260,7 @@
                     </table>
                 </div>
             </div>
-            <div id="class-cardio" class="container tab-pane fade p-0">
+            <div id="class-cardio" [ngClass]="{'active': cardio, 'fade': !cardio}" class="container tab-pane p-0">
                 <div class="table-responsive">
                     <table class="table table-bordered table-lg m-0">
                         <thead class="bg-secondary text-white text-center">
