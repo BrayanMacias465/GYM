@@ -25,4 +25,18 @@ export class BodyComponent {
     this.crossfit = false;
     this.powerlifting = false;
   }
+
+  showCrossfit(): void {
+    this.all = false;    
+    this.cardio = false;
+    this.crossfit = true;
+    this.powerlifting = false;
+  }
+
+  showPowerlifting(): void {
+    this.all = false;    
+    this.cardio = false;
+    this.crossfit = false;
+    this.powerlifting = true;
+  }
 }
