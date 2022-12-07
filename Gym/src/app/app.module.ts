@@ -8,6 +8,8 @@ import { LoginComponent } from './components/login/login.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { AdministradorComponent } from './components/administrador/administrador.component';
+import { ClientesComponent } from './components/administrador/components/clientes/clientes.component';
+import { EntrenadorComponent } from './components/administrador/components/entrenador/entrenador.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,9 @@ import { AdministradorComponent } from './components/administrador/administrador
     NavbarComponent,
     BodyComponent,
     LoginComponent,
-    AdministradorComponent
+    AdministradorComponent,
+    ClientesComponent,
+    EntrenadorComponent
   ],
   imports: [
     BrowserModule,
