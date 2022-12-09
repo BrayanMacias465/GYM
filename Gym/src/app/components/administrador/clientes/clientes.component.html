@@ -8,7 +8,8 @@
         </ng-template>
     </p-toolbar>
 
-    <p-table #dt [value]="clientes" [rows]="10" [paginator]="true" [globalFilterFields]="['nombre','apellido','cedula','estado']" [tableStyle]="{'min-width': '75rem'}"
+    <p-table #dt [value]="clientes" [rows]="10" [paginator]="true" 
+    [globalFilterFields]="['name', 'telephone', 'address', 'documentType', 'documentNumber', 'emergencyNumber', 'startDate', 'finishDate', 'padece',]" [tableStyle]="{'min-width': '75rem'}"
         [(selection)]="selectedClientes" [rowHover]="true" dataKey="id"
         currentPageReportTemplate="Mostrado {first} a {last} de {totalRecords} entradas" [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
@@ -25,10 +26,16 @@
                 <th style="width: 4rem">
                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                 </th>
-                <th pSortableColumn="nombre" style="min-width:15rem">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
-                <th pSortableColumn="apellido" style="min-width:15rem">Apellido <p-sortIcon field="apellido"></p-sortIcon></th>
-                <th pSortableColumn="cedula">Cedula <p-sortIcon field="cedula"></p-sortIcon></th>
-                <th pSortableColumn="estado" style="min-width:10rem">Estado <p-sortIcon field="estado"></p-sortIcon></th>
+                <th pSortableColumn="name" style="min-width:20px">Nombre <p-sortIcon field="name"></p-sortIcon></th>
+                <th pSortableColumn="lastname" style="min-width:20px">Apellido <p-sortIcon field="lastname"></p-sortIcon></th>
+                <th pSortableColumn="telephone" style="min-width:20px">Telefono <p-sortIcon field="telephone"></p-sortIcon></th>
+                <th pSortableColumn="address">Correo <p-sortIcon field="address"></p-sortIcon></th>
+                <th pSortableColumn="documentType" style="min-width:20px">Tipo de documento <p-sortIcon field="documentType"></p-sortIcon></th>
+                <th pSortableColumn="documentNumber">Numero documento <p-sortIcon field="documentNumber"></p-sortIcon></th>
+                <th pSortableColumn="emergencyNumber">Numero de emergencia <p-sortIcon field="emergencyNumber"></p-sortIcon></th>
+                <th pSortableColumn="startDate">Fecha de inicio <p-sortIcon field="startDate"></p-sortIcon></th>
+                <th pSortableColumn="finishDate">Numero de emergencia <p-sortIcon field="finishDate"></p-sortIcon></th>
+                <th pSortableColumn="padece">Padece <p-sortIcon field="padece"></p-sortIcon></th>
                 <th></th>
             </tr>
         </ng-template>
@@ -37,10 +44,19 @@
                 <td>
                     <p-tableCheckbox [value]="cliente"></p-tableCheckbox>
                 </td>
-                <td>{{cliente.nombre}}</td>
-                <td>{{cliente.apellido}}</td>
-                <td>{{cliente.cedula}}</td>
-                <td><span [class]="'cliente-badge status-'">{{cliente.estado}}</span></td>
+                <td>
+                    <img [alt]="cliente.name" src="" width="32" style="vertical-align: middle" />
+                    <span class="image-text">{{cliente.name}}</span>
+                </td>
+                <td>{{cliente.lastname}}</td>
+                <td>{{cliente.telephone}}</td>
+                <td>{{cliente.address}}</td>
+                <td>{{cliente.documentType}}</td>
+                <td>{{cliente.documentNumber}}</td>
+                <td>{{cliente.emergencyNumber}}</td>
+                <td>{{cliente.startDate}}</td>
+                <td>{{cliente.finishDate}}</td>
+                <td>{{cliente.padece}}</td>
                 <td>
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editCliente(cliente)"></button>
                     <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteCliente(cliente)"></button>
@@ -55,29 +71,111 @@
     </p-table>
 </div>
 
-<p-dialog [(visible)]="clienteDialog" [style]="{width: '450px'}" header="Cliente Details" [modal]="true" styleClass="p-fluid">
+<p-dialog [(visible)]="clienteDialog" [style]="{width: '650px', padding: '30px 50px'}" header="Detalles del cliente" [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="content">
-        <div class="field">
-            <label for="nombre">Nombre</label>
-            <input type="text" pInputText id="nombre" required autofocus />
-            <small class="p-error" *ngIf="submitted && !cliente.nombre">Nombre es requerido</small>
-        </div>
-        <div class="field">
-            <label for="apellido">Apellido</label>
-            <input type="text" pInputText id="apellido" required autofocus />
-            <small class="p-error" *ngIf="submitted && !cliente.apellido">Apellido es requerido</small>
-        </div>
-        <div class="field">
-            <label for="cedula">Cedula</label>
-            <input type="text" pInputText id="cedula" required autofocus />
-            <small class="p-error" *ngIf="submitted && !cliente.cedula">Cedula es requerida.</small>
-        </div>
+        <form>
+            <div class="row">
+                <div class="col">
+                    <div class="row">
+                        <label for="name" class="col-sm-4 col-form-label">Nombre</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="name" formControlName="name">
+                            <small class="p-error" *ngIf="">Nombre es requerido</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="row">
+                        <label for="lastname" class="col-sm-4 col-form-label">Apellido</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="lastname" formControlName="lastname">
+                            <small class="p-error" >Apellido es requerido</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="row">
+                        <label for="address" class="col-sm-4 col-form-label">Correo</label>
+                        <div class="col-sm-8">
+                            <input type="email" class="form-control" id="email" formControlName="email">
+                            <small class="p-error" *ngIf="">Correo es requerido</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="row">
+                        <label for="telephone" class="col-sm-4 col-form-label">Telefono</label>
+                        <div class="col-sm-8">
+                            <input type="number" class="form-control" id="telephone" formControlName="telephone">
+                            <small class="p-error" >Telefono es requerido</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="row">
+                        <label for="emergencyNumber" class="col-sm-4 col-form-label">Telefono de emergencia</label>
+                        <div class="col-sm-8">
+                            <input type="number" class="form-control" id="emergencyNumber" formControlName="emergencyNumber">
+                            <small class="p-error" >Telefono de emergenia es requerido</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="row">
+                        <label for="documentType" class="col-sm-4 col-form-label">Tipo de documento</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="documentType" formControlName="documentType">
+                            <small class="p-error" *ngIf="">El tipo de documento es requerido</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="row">
+                        <label for="documentNumber" class="col-sm-4 col-form-label">Numero de documento</label>
+                        <div class="col-sm-8">
+                            <input type="number" class="form-control" id="telephone" formControlName="documentNumber">
+                            <small class="p-error" >El numero de documento es requerido</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="row">
+                        <label for="startDate" class="col-sm-4 col-form-label">Fecha de inicio</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="startDate" formControlName="startDate">
+                            <small class="p-error" *ngIf="">Fecha de inicio es requerida</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="row">
+                        <label for="finishDate" class="col-sm-4 col-form-label">Fecha de fin</label>
+                        <div class="col-sm-8">
+                            <input type="number" class="form-control" id="finishDate" formControlName="finishDate">
+                            <small class="p-error" >Fecha de fin es requerida</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <label for="padece" class="col-sm-4 col-form-label">Padece</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="padece" formControlName="padece">
+                </div>
+            </div>
+        </form>
 
     </ng-template>
 
     <ng-template pTemplate="footer">
-        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveCliente()"></button>
+        <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text" (click)="saveCliente()"></button>
     </ng-template>
 </p-dialog>
 
