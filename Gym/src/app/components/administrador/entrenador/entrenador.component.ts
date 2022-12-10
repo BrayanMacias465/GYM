@@ -6,7 +6,8 @@ import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-entrenador',
   templateUrl: './entrenador.component.html',
-  styleUrls: ['./entrenador.component.css']
+  styleUrls: ['./entrenador.component.css'],
+  providers: [MessageService,ConfirmationService]
 })
 export class EntrenadorComponent {
   entrenadorDialog: boolean = false;
