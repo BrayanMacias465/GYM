@@ -1,1 +1,186 @@
-<p>entrenador works!</p>
+<p-toast></p-toast>
+
+<app-navbar-administrador></app-navbar-administrador>
+
+<div class="card">
+    <p-toolbar styleClass="mb-4 gap-2">
+        <ng-template pTemplate="left">
+            <button pButton pRipple label="Agregar Entrenador" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+            <button pButton pRipple [label]="'Borrar Entrenadors'" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedEntrenadors()" [disabled]="!selectedEntrenadors || !selectedEntrenadors.length"></button>
+        </ng-template>
+    </p-toolbar>
+
+    <p-table #dt [value]="entrenadors" [rows]="10" [paginator]="true" 
+    [globalFilterFields]="['name', 'telephone', 'address', 'documentType', 'documentNumber', 'emergencyNumber', 'startDate', 'finishDate', 'padece',]" [tableStyle]="{'min-width': '75rem'}"
+        [(selection)]="selectedEntrenadors" [rowHover]="true" dataKey="id"
+        currentPageReportTemplate="Mostrado {first} a {last} de {totalRecords} entradas" [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="d-flex align-items-center justify-content-between">
+                <h5 class="ms-4">Entrenadors</h5>
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText #searchInput type="text" (input)="dt.filterGlobal(searchInput.value, 'contains')" placeholder="Search..." />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 4rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th pSortableColumn="name" style="min-width:20px">
+                    Nombre 
+                    <p-columnFilter type="text" field="name" display="menu" class="ml-auto"></p-columnFilter>
+                    <p-sortIcon field="name"></p-sortIcon></th>
+                <th pSortableColumn="lastname" style="min-width:20px">
+                    Apellido 
+                    <p-columnFilter type="text" field="lastname" display="menu" class="ml-auto"></p-columnFilter>
+                    <p-sortIcon field="lastname"></p-sortIcon></th>
+                <th pSortableColumn="telephone" style="min-width:20px">
+                    Telefono 
+                    <p-columnFilter type="text" field="telephone" display="menu" class="ml-auto"></p-columnFilter>
+                    <p-sortIcon field="telephone"></p-sortIcon></th>
+                <th pSortableColumn="address">
+                    Correo 
+                    <p-columnFilter type="text" field="email" display="menu" class="ml-auto"></p-columnFilter>
+                    <p-sortIcon field="address"></p-sortIcon></th>
+                <th pSortableColumn="documentType" style="min-width:20px">
+                    Tipo de documento 
+                    <p-columnFilter type="text" field="documentType" display="menu" class="ml-auto"></p-columnFilter>
+                    <p-sortIcon field="documentType"></p-sortIcon></th>
+                <th pSortableColumn="documentNumber">
+                    Numero documento 
+                    <p-columnFilter type="text" field="documentNumber" display="menu" class="ml-auto"></p-columnFilter>
+                    <p-sortIcon field="documentNumber"></p-sortIcon></th>
+                <th pSortableColumn="emergencyNumber">
+                    Numero de emergencia 
+                    <p-columnFilter type="text" field="emergencyNumber" display="menu" class="ml-auto"></p-columnFilter>
+                    <p-sortIcon field="emergencyNumber"></p-sortIcon></th>
+                <th pSortableColumn="startDate">
+                    Fecha de inicio 
+                    <p-columnFilter type="date" field="startDate" display="menu" class="ml-auto"></p-columnFilter>
+                    <p-sortIcon field="startDate"></p-sortIcon></th>
+                <th pSortableColumn="finishDate">
+                    Fecha de fin 
+                    <p-columnFilter type="date" field="finishDate" display="menu" class="ml-auto"></p-columnFilter>
+                    <p-sortIcon field="finishDate"></p-sortIcon></th>
+                <th pSortableColumn="padece">
+                    Padece 
+                    <p-columnFilter type="text" field="padece" display="menu" class="ml-auto"></p-columnFilter>
+                    <p-sortIcon field="padece"></p-sortIcon></th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-entrenador>
+            <tr>
+                <td>
+                    <p-tableCheckbox [value]="entrenador"></p-tableCheckbox>
+                </td>
+                <td>
+                    <img [alt]="entrenador.name" src="" width="32" style="vertical-align: middle" />
+                    <span class="image-text">{{entrenador.name}}</span>
+                </td>
+                <td>{{entrenador.lastname}}</td>
+                <td>{{entrenador.telephone}}</td>
+                <td>{{entrenador.address}}</td>
+                <td>{{entrenador.documentType}}</td>
+                <td>{{entrenador.documentNumber}}</td>
+                <td>{{entrenador.emergencyNumber}}</td>
+                <td>{{entrenador.startDate}}</td>
+                <td>{{entrenador.finishDate}}</td>
+                <td>{{entrenador.padece}}</td>
+                <td>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editEntrenador(entrenador)"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteEntrenador(entrenador)"></button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+                En total hay {{entrenadors ? entrenadors.length : 0 }} entrenadors.
+            </div>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog [(visible)]="entrenadorDialog" [style]="{width: '900px'}" header="Detalles del entrenador" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <form id="formEntrenador" [formGroup]="formEntrenador" (ngSubmit)="saveEntrenador(formEntrenador.value)">
+            <div class="row px-2">
+                <div class="col-4">
+                    <p-image [src]="imgURL" alt="Image" width="250" [preview]="true"></p-image>
+                    <input #file accept="image/*" (change)="changeFoto(file.files)" class="form-control form-control-sm mt-4" type="file" name="file" id="file"/>
+                </div>
+                <div class="col-8">
+                    <div class="row">
+                        <div class="col">
+                            <label for="name" class="col-form-label">Nombre</label>
+                            <input pInputText type="text" id="name" formControlName="name">
+                            <small class="p-error" *ngIf="formEntrenador.get('name')?.hasError('required') && formEntrenador.get('name')?.touched">Nombre es requerido</small>
+                        </div>
+                        <div class="col">
+                            <label for="lastname" class="col-form-label">Apellido</label>
+                            <input pInputText type="text" id="lastname" formControlName="lastname">
+                            <small class="p-error" *ngIf="formEntrenador.get('lastname')?.hasError('required') && formEntrenador.get('lastname')?.touched">Apellido es requerido</small>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label for="address" class="col-form-label">Direccion</label>
+                            <input pInputText type="email" id="address" formControlName="address">
+                            <small class="p-error" *ngIf="formEntrenador.get('address')?.hasError('required') && formEntrenador.get('address')?.touched">Direccion es requerida</small>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label for="telephone" class="col-form-label">Telefono</label>
+                            <p-inputNumber id="telephone" formControlName="telephone"></p-inputNumber>
+                            <small class="p-error" *ngIf="formEntrenador.get('telephone')?.hasError('required') && formEntrenador.get('telephone')?.touched">Telefono es requerido</small>       
+                        </div>
+                        <div class="col">
+                            <label for="emergencyNumber" class="col-form-label">Telefono de emergencia</label>
+                            <p-inputNumber id="emergencyNumber" formControlName="emergencyNumber"></p-inputNumber>
+                            <small class="p-error" *ngIf="formEntrenador.get('emergencyNumber')?.hasError('required') && formEntrenador.get('emergencyNumber')?.touched">Telefono de emergenia es requerido</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row px-2">
+                <div class="col">
+                    <label for="documentType" class="col-form-label">Tipo de documento</label>
+                    <input pInputText type="text" id="documentType" formControlName="documentType">
+                    <small class="p-error" *ngIf="formEntrenador.get('documentType')?.hasError('required') && formEntrenador.get('documentType')?.touched">El tipo de documento es requerido</small>
+                </div>
+                <div class="col">
+                    <label for="documentNumber" class="col-form-label">Numero de documento</label>
+                    <p-inputNumber id="telephone" formControlName="documentNumber"></p-inputNumber>
+                    <small class="p-error" *ngIf="formEntrenador.get('documentNumber')?.hasError('required') && formEntrenador.get('documentNumber')?.touched">El numero de documento es requerido</small>
+                </div>
+            </div>
+            <div class="row px-2">
+                <div class="col">
+                    <label for="startDate" class="col-form-label">Fecha de inicio</label>    
+                    <p-calendar appendTo="body" id="startDate" formControlName="startDate"></p-calendar>
+                    <small class="p-error" *ngIf="formEntrenador.get('startDate')?.hasError('required') && formEntrenador.get('startDate')?.touched">Fecha de inicio es requerida</small>
+                </div>
+                <div class="col">
+                    <label for="finishDate" class="col-form-label">Fecha de fin</label>
+                    <p-calendar appendTo="body" id="finishDate" formControlName="finishDate"></p-calendar>
+                    <small class="p-error" *ngIf="formEntrenador.get('finishDate')?.hasError('required') && formEntrenador.get('finishDate')?.touched">Fecha de fin es requerida</small>    
+                </div>
+            </div>
+            <div class="row px-4">
+                <label for="padece" class="col-form-label">Padece</label>
+                <textarea pInputTextarea id="padece" formControlName="padece"></textarea>
+            </div>
+        </form>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text" form="formEntrenador"></button>
+    </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

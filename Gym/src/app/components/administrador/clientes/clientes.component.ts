@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 
@@ -14,9 +15,23 @@ export class ClientesComponent {
   clientes: any[] = [];
   cliente: any = {};
   selectedClientes: any[] = [];
+  formCliente: FormGroup;
+  imgURL: any = '../../../../assets/img/descarga.png';
 
-  constructor(private messageService: MessageService, private confirmationService: ConfirmationService) { 
-
+  constructor(private formBuilder: FormBuilder, private messageService: MessageService, private confirmationService: ConfirmationService) { 
+    this.formCliente = this.formBuilder.group({
+      name: ['', [Validators.required]],
+      lastname: ['', [Validators.required]],
+      telephone: ['', [Validators.required]],
+      address: ['', [Validators.required]],
+      documentType: ['', [Validators.required]],
+      documentNumber: ['', [Validators.required]],
+      emergencyNumber: ['', [Validators.required]],
+      startDate: ['', [Validators.required]],
+      finishDate: ['', [Validators.required]],
+      padece: [''],
+      foto: ['', [Validators.required]],
+    });
   }
 
   ngOnInit() {
@@ -62,9 +77,15 @@ export class ClientesComponent {
     this.clienteDialog = false;
   }
 
-  saveCliente() {
+  saveCliente(data: any) {
 
-    if (this.cliente.name.trim()) {
+    if(this.formCliente.valid){
+      alert('is valido');
+      console.log(data);
+    }else{
+      this.formCliente.markAllAsTouched();
+    }
+    /* if (this.cliente.name.trim()) {
       if (this.cliente.id) {
         this.clientes[this.findIndexById(this.cliente.id)] = this.cliente;
         this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Cliente Updated', life: 3000 });
@@ -79,7 +100,7 @@ export class ClientesComponent {
       this.clientes = [...this.clientes];
       this.clienteDialog = false;
       this.cliente = {};
-    }
+    } */
   }
 
   findIndexById(id: string): number {
@@ -101,5 +122,16 @@ export class ClientesComponent {
       id += chars.charAt(Math.floor(Math.random() * chars.length));
     }
     return id;
+  }
+
+  changeFoto(data: any):void {
+    let reader = new FileReader();
+    reader.readAsDataURL(data[0]);
+    reader.onload = (e) => {
+      this.imgURL = reader.result;
+      this.formCliente.patchValue({
+        foto: this.imgURL,
+      });
+    }
   }
 }

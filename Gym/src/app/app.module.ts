@@ -19,6 +19,11 @@ import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { ImageModule } from 'primeng/image';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CalendarModule } from 'primeng/calendar';
+import { NavbarAdministradorComponent } from './components/administrador/navbar-administrador/navbar-administrador.component';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @NgModule({
   declarations: [
@@ -27,7 +32,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     BodyComponent,
     LoginComponent,
     ClientesComponent,
-    EntrenadorComponent
+    EntrenadorComponent,
+    NavbarAdministradorComponent
   ],
   imports: [
     BrowserModule,
@@ -41,6 +47,11 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     ButtonModule,
     DialogModule,
     ConfirmDialogModule,
+    InputTextareaModule,
+    ImageModule,
+    ReactiveFormsModule,
+    CalendarModule,
+    InputNumberModule,
     InputTextareaModule
   ],
   providers: [],
