@@ -24,9 +24,11 @@ export class ClientesService {
     return this._http.put(`${this.url}/services_usuarios/editar.php`, data, { headers: headers });
   }
 
-  getClientes(): Observable<any> {
-    let headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this._http.get(`${this.url}/services_usuarios/seleccionar.php`, { headers: headers });
+  getClientes(token: string): Observable<any> {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Autorization', 'Bearer ' + token);
+    /* let headers = new HttpHeaders({'Content-Type':'application/json'}); */
+    return this._http.get(`${this.url}/clientes`, { headers: headers });
   }
 
   eliminarCliente(data: object): Observable<any> {

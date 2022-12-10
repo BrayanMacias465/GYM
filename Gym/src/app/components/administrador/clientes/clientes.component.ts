@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
+import { ClientesService } from 'src/app/services/clientes.service'; 
 
 @Component({
   selector: 'app-clientes',
@@ -18,7 +19,7 @@ export class ClientesComponent {
   formCliente: FormGroup;
   imgURL: any = '../../../../assets/img/descarga.png';
 
-  constructor(private formBuilder: FormBuilder, private messageService: MessageService, private confirmationService: ConfirmationService) { 
+  constructor(private formBuilder: FormBuilder, private messageService: MessageService, private confirmationService: ConfirmationService, private clienteService: ClientesService) { 
     this.formCliente = this.formBuilder.group({
       name: ['', [Validators.required]],
       lastname: ['', [Validators.required]],
@@ -30,11 +31,33 @@ export class ClientesComponent {
       startDate: ['', [Validators.required]],
       finishDate: ['', [Validators.required]],
       padece: [''],
-      foto: ['', [Validators.required]],
+      foto: [''],
     });
   }
 
   ngOnInit() {
+    this.clientes = [
+      {
+        "name": "Pepito",
+        "lastname": "Perez",
+        "telephone": "3213689656",
+        "address": "av 3 No 8989",
+        "documentType": "CC",
+        "documentNumber": "963256",
+        "emergencyNumber": "45647658789",
+        "startDate": "2022-12-08",
+        "finishDate": "2022-12-30",
+        "missingDays": 22
+      }
+    ];
+    /* this.clienteService.getClientes('eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbIlJPTEVfQURNSU4iLCJST0xFX1VTRVIiXSwiaWF0IjoxNjcwNjQwMTAzLCJleHAiOjE2NzA2NDM3MDN9.WmgrfCf-IXLN-BJ7050dMe2oCdg-qyipZhpvoDH2wjn4SFwSHtZEjiVs0ho8uXySI-Fa1xQxXxBVY70QbGWivA').subscribe(
+      response => {
+        this.clientes = response;
+      },
+      error => {
+        alert('Ocurrio un error');
+      }
+    ); */
   }
 
   openNew() {
@@ -80,8 +103,10 @@ export class ClientesComponent {
   saveCliente(data: any) {
 
     if(this.formCliente.valid){
-      alert('is valido');
-      console.log(data);
+      data.foto = this.imgURL;
+      this.clientes.push(data);
+      this.messageService.add({ severity: 'success', summary: 'Exitoso', detail: 'Se ha creado un nuevo cliente', life: 3000 });
+      this.formCliente.reset();
     }else{
       this.formCliente.markAllAsTouched();
     }

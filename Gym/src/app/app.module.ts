@@ -24,6 +24,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
 import { NavbarAdministradorComponent } from './components/administrador/navbar-administrador/navbar-administrador.component';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
     ReactiveFormsModule,
     CalendarModule,
     InputNumberModule,
-    InputTextareaModule
+    InputTextareaModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

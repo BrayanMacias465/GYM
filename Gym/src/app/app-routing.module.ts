@@ -6,7 +6,7 @@ import { ClientesComponent } from './components/administrador/clientes/clientes.
 import { EntrenadorComponent } from './components/administrador/entrenador/entrenador.component';
 
 const routes: Routes = [
-  { path: 'inicio', component: BodyComponent },
+  { path: '', component: BodyComponent },
   { path: 'administrador', children: [
     { path: 'autenticacion', component: LoginComponent },
     { path: 'clientes', component: ClientesComponent },
