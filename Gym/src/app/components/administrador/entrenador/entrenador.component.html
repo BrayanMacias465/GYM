@@ -6,7 +6,7 @@
     <p-toolbar styleClass="mb-4 gap-2">
         <ng-template pTemplate="left">
             <button pButton pRipple label="Agregar Entrenador" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
-            <button pButton pRipple [label]="'Borrar Entrenadors'" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedEntrenadors()" [disabled]="!selectedEntrenadors || !selectedEntrenadors.length"></button>
+            <button pButton pRipple [label]="'Borrar Entrenadores'" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedEntrenadors()" [disabled]="!selectedEntrenadors || !selectedEntrenadors.length"></button>
         </ng-template>
     </p-toolbar>
 
@@ -16,7 +16,7 @@
         currentPageReportTemplate="Mostrado {first} a {last} de {totalRecords} entradas" [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
             <div class="d-flex align-items-center justify-content-between">
-                <h5 class="ms-4">Entrenadors</h5>
+                <h5 class="ms-4">Entrenadores</h5>
                 <span class="p-input-icon-left">
                     <i class="pi pi-search"></i>
                     <input pInputText #searchInput type="text" (input)="dt.filterGlobal(searchInput.value, 'contains')" placeholder="Search..." />
@@ -56,14 +56,6 @@
                     Numero de emergencia 
                     <p-columnFilter type="text" field="emergencyNumber" display="menu" class="ml-auto"></p-columnFilter>
                     <p-sortIcon field="emergencyNumber"></p-sortIcon></th>
-                <th pSortableColumn="startDate">
-                    Fecha de inicio 
-                    <p-columnFilter type="date" field="startDate" display="menu" class="ml-auto"></p-columnFilter>
-                    <p-sortIcon field="startDate"></p-sortIcon></th>
-                <th pSortableColumn="finishDate">
-                    Fecha de fin 
-                    <p-columnFilter type="date" field="finishDate" display="menu" class="ml-auto"></p-columnFilter>
-                    <p-sortIcon field="finishDate"></p-sortIcon></th>
                 <th pSortableColumn="padece">
                     Padece 
                     <p-columnFilter type="text" field="padece" display="menu" class="ml-auto"></p-columnFilter>
@@ -86,8 +78,6 @@
                 <td>{{entrenador.documentType}}</td>
                 <td>{{entrenador.documentNumber}}</td>
                 <td>{{entrenador.emergencyNumber}}</td>
-                <td>{{entrenador.startDate}}</td>
-                <td>{{entrenador.finishDate}}</td>
                 <td>{{entrenador.padece}}</td>
                 <td>
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editEntrenador(entrenador)"></button>
@@ -155,18 +145,6 @@
                     <label for="documentNumber" class="col-form-label">Numero de documento</label>
                     <p-inputNumber id="telephone" formControlName="documentNumber"></p-inputNumber>
                     <small class="p-error" *ngIf="formEntrenador.get('documentNumber')?.hasError('required') && formEntrenador.get('documentNumber')?.touched">El numero de documento es requerido</small>
-                </div>
-            </div>
-            <div class="row px-2">
-                <div class="col">
-                    <label for="startDate" class="col-form-label">Fecha de inicio</label>    
-                    <p-calendar appendTo="body" id="startDate" formControlName="startDate"></p-calendar>
-                    <small class="p-error" *ngIf="formEntrenador.get('startDate')?.hasError('required') && formEntrenador.get('startDate')?.touched">Fecha de inicio es requerida</small>
-                </div>
-                <div class="col">
-                    <label for="finishDate" class="col-form-label">Fecha de fin</label>
-                    <p-calendar appendTo="body" id="finishDate" formControlName="finishDate"></p-calendar>
-                    <small class="p-error" *ngIf="formEntrenador.get('finishDate')?.hasError('required') && formEntrenador.get('finishDate')?.touched">Fecha de fin es requerida</small>    
                 </div>
             </div>
             <div class="row px-4">

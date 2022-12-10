@@ -1,0 +1,8 @@
+.card {
+    max-width: 90%;
+    position: absolute;
+    border: none;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+}
