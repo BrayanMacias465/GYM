@@ -31,8 +31,8 @@ export class ClientesComponent {
       emergencyNumber: ['', [Validators.required]],
       startDate: ['', [Validators.required]],
       finishDate: ['', [Validators.required]],
-      padece: [''],
-      foto: [''],
+      medicalHistory: [''],
+      photo: [''],
     });
 
     this.token = sessionStorage.getItem('token');
@@ -83,8 +83,8 @@ export class ClientesComponent {
       emergencyNumber: [cliente.emergencyNumber],
       startDate: [cliente.startDate],
       finishDate: [cliente.finishDate],
-      padece: [cliente.padece],
-      foto: [''],
+      medicalHistory: [cliente.medicalHistory],
+      photo: [''],
     });
     this.clienteDialog = true;
   }
@@ -119,7 +119,7 @@ export class ClientesComponent {
     data.finishDate = finishDate.getDay() + '-' + finishDate.getMonth() + '-' + finishDate.getFullYear();
     console.log(data);
     if(this.formCliente.valid){
-      if(this.cliente){
+      if(this.cliente.documentNumber){
         this.clienteService.modificarCliente(data, this.token?this.token:'').subscribe(
           response => {
             this.cargarDatos();
@@ -129,9 +129,7 @@ export class ClientesComponent {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ocurrio un error en el servidor', life: 3000 });
           }
         );
-
       }else{
-        data.foto = this.imgURL;
         this.clienteService.agregarCliente(data, this.token?this.token:'').subscribe(
           response => {
             this.cargarDatos();
@@ -145,53 +143,18 @@ export class ClientesComponent {
     }else{
       this.formCliente.markAllAsTouched();
     }
-    /* if (this.cliente.name.trim()) {
-      if (this.cliente.id) {
-        this.clientes[this.findIndexById(this.cliente.id)] = this.cliente;
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Cliente Updated', life: 3000 });
-      }
-      else {
-        this.cliente.id = this.createId();
-        this.cliente.image = 'cliente-placeholder.svg';
-        this.clientes.push(this.cliente);
-        this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Cliente Created', life: 3000 });
-      }
-
-      this.clientes = [...this.clientes];
-      this.clienteDialog = false;
-      this.cliente = {};
-    } */
   }
 
-  findIndexById(id: string): number {
-    let index = -1;
-    for (let i = 0; i < this.clientes.length; i++) {
-      if (this.clientes[i].id === id) {
-        index = i;
-        break;
-      }
-    }
-
-    return index;
-  }
-
-  createId(): string {
-    let id = '';
-    var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    for (var i = 0; i < 5; i++) {
-      id += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return id;
-  }
-
-  changeFoto(data: any):void {
+  changephoto(data: any):void {
     let reader = new FileReader();
     reader.readAsDataURL(data[0]);
     reader.onload = (e) => {
       this.imgURL = reader.result;
+      const photo = (<string>this.imgURL)?.split(',')[1];
+      console.log(this.imgURL);
       this.formCliente.patchValue({
-        foto: this.imgURL,
-      });
+        photo: photo,
+      });  
     }
   }
 }

@@ -14,23 +14,23 @@ export class EntrenadoresService {
     this.url = GLOBAL.url;
   }
 
-  agregarEntrenador(data: object): Observable<any> {
-    let headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this._http.post(`${this.url}/services_usuarios/agregar.php`, data, { headers: headers });
+  agregarEntrenador(data: object, token: string): Observable<any> {
+    let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':`Bearer ${token}`});
+    return this._http.post(`${this.url}/entrenadores`, data, { headers: headers });
   }
 
-  modificarEntrenador(data: object): Observable<any> {
-    let headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this._http.put(`${this.url}/services_usuarios/editar.php`, data, { headers: headers });
+  modificarEntrenador(data: any, token: string): Observable<any> {
+    let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':`Bearer ${token}`});
+    return this._http.put(`${this.url}/entrenadores/${data.documentNumber}`, data, { headers: headers });
   }
 
-  getEntrenadores(): Observable<any> {
-    let headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this._http.get(`${this.url}/services_usuarios/seleccionar.php`, { headers: headers });
+  getEntrenadores(token: string): Observable<any> {
+    let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':`Bearer ${token}`});
+    return this._http.get(`${this.url}/entrenadores`, { headers: headers });
   }
 
-  eliminarEntrenador(data: object): Observable<any> {
-    let headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this._http.get(`${this.url}/services_usuarios/seleccionar.php`, { headers: headers });
+  eliminarEntrenador(cedula: string, token: string): Observable<any> {
+    let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':`Bearer ${token}`});
+    return this._http.delete(`${this.url}/entrenadores/${cedula}`, { headers: headers });
   }
 }

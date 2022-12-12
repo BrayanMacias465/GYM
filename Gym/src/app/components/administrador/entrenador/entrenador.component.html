@@ -6,13 +6,13 @@
     <p-toolbar styleClass="mb-4 gap-2">
         <ng-template pTemplate="left">
             <button pButton pRipple label="Agregar Entrenador" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
-            <button pButton pRipple [label]="'Borrar Entrenadores'" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedEntrenadors()" [disabled]="!selectedEntrenadors || !selectedEntrenadors.length"></button>
+            <button pButton pRipple [label]="'Borrar Entrenadores'" icon="pi pi-trash" class="p-button-danger" (click)="deleteSelectedEntrenadores()" [disabled]="!selectedEntrenadores || !selectedEntrenadores.length"></button>
         </ng-template>
     </p-toolbar>
 
-    <p-table #dt [value]="entrenadors" [rows]="10" [paginator]="true" 
+    <p-table #dt [value]="entrenadores" [rows]="10" [paginator]="true" 
     [globalFilterFields]="['name', 'telephone', 'address', 'documentType', 'documentNumber', 'emergencyNumber', 'startDate', 'finishDate', 'padece',]" [tableStyle]="{'min-width': '75rem'}"
-        [(selection)]="selectedEntrenadors" [rowHover]="true" dataKey="id"
+        [(selection)]="selectedEntrenadores" [rowHover]="true" dataKey="id"
         currentPageReportTemplate="Mostrado {first} a {last} de {totalRecords} entradas" [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
             <div class="d-flex align-items-center justify-content-between">
@@ -69,7 +69,7 @@
                     <p-tableCheckbox [value]="entrenador"></p-tableCheckbox>
                 </td>
                 <td>
-                    <img [alt]="entrenador.name" src="" width="32" style="vertical-align: middle" />
+                    <img [alt]="entrenador.name" src="data:image/png;base64,{{entrenador.photo}}" width="32" style="vertical-align: middle" />
                     <span class="image-text">{{entrenador.name}}</span>
                 </td>
                 <td>{{entrenador.lastname}}</td>
@@ -87,7 +87,7 @@
         </ng-template>
         <ng-template pTemplate="summary">
             <div class="flex align-items-center justify-content-between">
-                En total hay {{entrenadors ? entrenadors.length : 0 }} entrenadors.
+                En total hay {{entrenadores ? entrenadores.length : 0 }} entrenadores.
             </div>
         </ng-template>
     </p-table>
@@ -99,7 +99,7 @@
             <div class="row px-2">
                 <div class="col-4">
                     <p-image [src]="imgURL" alt="Image" width="250" [preview]="true"></p-image>
-                    <input #file accept="image/*" (change)="changeFoto(file.files)" class="form-control form-control-sm mt-4" type="file" name="file" id="file"/>
+                    <input #file accept="image/*" (change)="changephoto(file.files)" class="form-control form-control-sm mt-4" type="file" name="file" id="file"/>
                 </div>
                 <div class="col-8">
                     <div class="row">
