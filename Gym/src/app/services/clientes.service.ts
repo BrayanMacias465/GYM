@@ -14,26 +14,24 @@ export class ClientesService {
     this.url = GLOBAL.url;
   }
 
-  agregarCliente(data: object): Observable<any> {
-    let headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this._http.post(`${this.url}/services_usuarios/agregar.php`, data, { headers: headers });
+  agregarCliente(data: object, token: string): Observable<any> {
+    let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':`Bearer ${token}`});
+    return this._http.post(`${this.url}/clientes`, data, { headers: headers });
   }
 
-  modificarCliente(data: object): Observable<any> {
-    let headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this._http.put(`${this.url}/services_usuarios/editar.php`, data, { headers: headers });
+  modificarCliente(data: any, token: string): Observable<any> {
+    let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':`Bearer ${token}`});
+    return this._http.put(`${this.url}/clientes/${data.documentNumber}`, data, { headers: headers });
   }
 
   getClientes(token: string): Observable<any> {
-    let headers: HttpHeaders = new HttpHeaders();
-    headers = headers.append('Autorization', 'Bearer ' + token);
-    /* let headers = new HttpHeaders({'Content-Type':'application/json'}); */
+    let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':`Bearer ${token}`});
     return this._http.get(`${this.url}/clientes`, { headers: headers });
   }
 
-  eliminarCliente(data: object): Observable<any> {
-    let headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this._http.get(`${this.url}/services_usuarios/seleccionar.php`, { headers: headers });
+  eliminarCliente(cedula: string, token: string): Observable<any> {
+    let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':`Bearer ${token}`});
+    return this._http.delete(`${this.url}/clientes/${cedula}`, { headers: headers });
   }
 
 }

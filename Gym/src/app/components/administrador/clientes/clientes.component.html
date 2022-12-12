@@ -160,12 +160,12 @@
             <div class="row px-2">
                 <div class="col">
                     <label for="startDate" class="col-form-label">Fecha de inicio</label>    
-                    <p-calendar appendTo="body" id="startDate" formControlName="startDate"></p-calendar>
+                    <p-calendar appendTo="body" id="startDate" dateFormat="DD, dd/mm/yy" formControlName="startDate"></p-calendar>
                     <small class="p-error" *ngIf="formCliente.get('startDate')?.hasError('required') && formCliente.get('startDate')?.touched">Fecha de inicio es requerida</small>
                 </div>
                 <div class="col">
                     <label for="finishDate" class="col-form-label">Fecha de fin</label>
-                    <p-calendar appendTo="body" id="finishDate" formControlName="finishDate"></p-calendar>
+                    <p-calendar appendTo="body" id="finishDate" dateFormat="DD, dd/mm/yy" formControlName="finishDate"></p-calendar>
                     <small class="p-error" *ngIf="formCliente.get('finishDate')?.hasError('required') && formCliente.get('finishDate')?.touched">Fecha de fin es requerida</small>    
                 </div>
             </div>

@@ -18,6 +18,7 @@ export class ClientesComponent {
   selectedClientes: any[] = [];
   formCliente: FormGroup;
   imgURL: any = '../../../../assets/img/descarga.png';
+  token: string | null = '';
 
   constructor(private formBuilder: FormBuilder, private messageService: MessageService, private confirmationService: ConfirmationService, private clienteService: ClientesService) { 
     this.formCliente = this.formBuilder.group({
@@ -33,31 +34,23 @@ export class ClientesComponent {
       padece: [''],
       foto: [''],
     });
+
+    this.token = sessionStorage.getItem('token');
   }
 
   ngOnInit() {
-    this.clientes = [
-      {
-        "name": "Pepito",
-        "lastname": "Perez",
-        "telephone": "3213689656",
-        "address": "av 3 No 8989",
-        "documentType": "CC",
-        "documentNumber": "963256",
-        "emergencyNumber": "45647658789",
-        "startDate": "2022-12-08",
-        "finishDate": "2022-12-30",
-        "missingDays": 22
-      }
-    ];
-    /* this.clienteService.getClientes('eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbIlJPTEVfQURNSU4iLCJST0xFX1VTRVIiXSwiaWF0IjoxNjcwNjQwMTAzLCJleHAiOjE2NzA2NDM3MDN9.WmgrfCf-IXLN-BJ7050dMe2oCdg-qyipZhpvoDH2wjn4SFwSHtZEjiVs0ho8uXySI-Fa1xQxXxBVY70QbGWivA').subscribe(
+      this.cargarDatos();
+  }
+
+  cargarDatos(): void {
+    this.clienteService.getClientes(this.token?this.token:'').subscribe(
       response => {
         this.clientes = response;
       },
       error => {
-        alert('Ocurrio un error');
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ocurrio un error en el servidor', life: 3000 });
       }
-    ); */
+    );
   }
 
   openNew() {
@@ -79,7 +72,20 @@ export class ClientesComponent {
   }
 
   editCliente(cliente: any) {
-    this.cliente = { ...cliente };
+    this.cliente = cliente;
+    this.formCliente.patchValue({
+      name: [cliente.name],
+      lastname: [cliente.lastname],
+      telephone: [cliente.telephone],
+      address: [cliente.address],
+      documentType: [cliente.documentType],
+      documentNumber: [cliente.documentNumber],
+      emergencyNumber: [cliente.emergencyNumber],
+      startDate: [cliente.startDate],
+      finishDate: [cliente.finishDate],
+      padece: [cliente.padece],
+      foto: [''],
+    });
     this.clienteDialog = true;
   }
 
@@ -89,9 +95,14 @@ export class ClientesComponent {
       header: 'Confirmar',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.clientes = this.clientes.filter(val => val.id !== cliente.id);
-        this.cliente = {};
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Cliente eliminado', life: 3000 });
+        this.clienteService.eliminarCliente(cliente.documentNumber, this.token?this.token:'').subscribe(
+          response => {
+            this.cargarDatos();
+            this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Cliente eliminado', life: 3000 });
+          }, error => {
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ocurrio un error en el servidor', life: 3000 });
+          }
+        );
       }
     });
   }
@@ -101,12 +112,36 @@ export class ClientesComponent {
   }
 
   saveCliente(data: any) {
-
+    console.log(data);
+    const startDate = new Date(data.startDate); 
+    data.startDate = startDate.getDay() + '-' + startDate.getMonth() + '-' + startDate.getFullYear();
+    const finishDate = new Date(data.finishDate);
+    data.finishDate = finishDate.getDay() + '-' + finishDate.getMonth() + '-' + finishDate.getFullYear();
+    console.log(data);
     if(this.formCliente.valid){
-      data.foto = this.imgURL;
-      this.clientes.push(data);
-      this.messageService.add({ severity: 'success', summary: 'Exitoso', detail: 'Se ha creado un nuevo cliente', life: 3000 });
-      this.formCliente.reset();
+      if(this.cliente){
+        this.clienteService.modificarCliente(data, this.token?this.token:'').subscribe(
+          response => {
+            this.cargarDatos();
+            this.messageService.add({ severity: 'success', summary: 'Exitoso', detail: 'Se ha modificado un cliente', life: 3000 });
+            this.formCliente.reset();
+          },error => {
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ocurrio un error en el servidor', life: 3000 });
+          }
+        );
+
+      }else{
+        data.foto = this.imgURL;
+        this.clienteService.agregarCliente(data, this.token?this.token:'').subscribe(
+          response => {
+            this.cargarDatos();
+            this.messageService.add({ severity: 'success', summary: 'Exitoso', detail: 'Se ha creado un nuevo cliente', life: 3000 });
+            this.formCliente.reset();
+          },error => {
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ocurrio un error en el servidor', life: 3000 });
+          }
+        );
+      }
     }else{
       this.formCliente.markAllAsTouched();
     }
