@@ -115,9 +115,9 @@ export class ClientesComponent {
   saveCliente(data: any) {
     console.log(data);
     const startDate = new Date(data.startDate); 
-    data.startDate = startDate.getDay() + '-' + startDate.getMonth() + '-' + startDate.getFullYear();
+    data.startDate = startDate.getDate() + '-' + (startDate.getMonth()+1) + '-' + startDate.getFullYear();
     const finishDate = new Date(data.finishDate);
-    data.finishDate = finishDate.getDay() + '-' + finishDate.getMonth() + '-' + finishDate.getFullYear();
+    data.finishDate = finishDate.getDate() + '-' + (finishDate.getMonth()+1) + '-' + finishDate.getFullYear();
     console.log(data);
     if(this.formCliente.valid){
       if(this.cliente.documentNumber){
