@@ -74,18 +74,19 @@ export class ClientesComponent {
   editCliente(cliente: any) {
     this.cliente = cliente;
     this.formCliente.patchValue({
-      name: [cliente.name],
-      lastname: [cliente.lastname],
-      telephone: [cliente.telephone],
-      address: [cliente.address],
-      documentType: [cliente.documentType],
-      documentNumber: [cliente.documentNumber],
-      emergencyNumber: [cliente.emergencyNumber],
-      startDate: [cliente.startDate],
-      finishDate: [cliente.finishDate],
-      medicalHistory: [cliente.medicalHistory],
-      photo: [''],
+      name: cliente.name,
+      lastname: cliente.lastname,
+      telephone: cliente.telephone,
+      address: cliente.address,
+      documentType: cliente.documentType,
+      documentNumber: cliente.documentNumber,
+      emergencyNumber: cliente.emergencyNumber,
+      startDate: cliente.startDate,
+      finishDate: cliente.finishDate,
+      medicalHistory: cliente.medicalHistory,
+      photo: cliente.photo
     });
+    this.imgURL = `data:image/png;base64,${this.cliente.photo}`;
     this.clienteDialog = true;
   }
 
@@ -125,6 +126,7 @@ export class ClientesComponent {
             this.cargarDatos();
             this.messageService.add({ severity: 'success', summary: 'Exitoso', detail: 'Se ha modificado un cliente', life: 3000 });
             this.formCliente.reset();
+            this.cliente = {};
           },error => {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ocurrio un error en el servidor', life: 3000 });
           }

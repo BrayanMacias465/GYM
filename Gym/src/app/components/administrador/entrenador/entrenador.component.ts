@@ -28,8 +28,7 @@ export class EntrenadorComponent {
       address: ['', [Validators.required]],
       documentType: ['', [Validators.required]],
       documentNumber: ['', [Validators.required]],
-      emergencyNumber: ['', [Validators.required]],
-      medicalHistory: [''],
+      salary: [''],
       photo: [''],
     });
 
@@ -72,16 +71,16 @@ export class EntrenadorComponent {
   editEntrenador(entrenador: any) {
     this.entrenador = entrenador;
     this.formEntrenador.patchValue({
-      name: [entrenador.name],
-      lastname: [entrenador.lastname],
-      telephone: [entrenador.telephone],
-      address: [entrenador.address],
-      documentType: [entrenador.documentType],
-      documentNumber: [entrenador.documentNumber],
-      emergencyNumber: [entrenador.emergencyNumber],
-      medicalHistory: [entrenador.medicalHistory],
-      photo: [''],
+      name: entrenador.name,
+      lastname: entrenador.lastname,
+      telephone: entrenador.telephone,
+      address: entrenador.address,
+      documentType: entrenador.documentType,
+      documentNumber: entrenador.documentNumber,
+      salary: entrenador.salary,
+      photo: entrenador.photo,
     });
+    this.imgURL = `data:image/png;base64,${this.entrenador.photo}`;
     this.entrenadorDialog = true;
   }
 

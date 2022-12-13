@@ -28,44 +28,44 @@
                 <th style="width: 4rem">
                     <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                 </th>
-                <th pSortableColumn="name" style="min-width:20px">
+                <th pSortableColumn="name" style="min-width:11rem">
                     Nombre 
                     <p-columnFilter type="text" field="name" display="menu" class="ml-auto"></p-columnFilter>
                     <p-sortIcon field="name"></p-sortIcon></th>
-                <th pSortableColumn="lastname" style="min-width:20px">
+                <th pSortableColumn="lastname" style="min-width:11rem">
                     Apellido 
                     <p-columnFilter type="text" field="lastname" display="menu" class="ml-auto"></p-columnFilter>
                     <p-sortIcon field="lastname"></p-sortIcon></th>
-                <th pSortableColumn="telephone" style="min-width:20px">
+                <th pSortableColumn="telephone" style="min-width:11rem">
                     Telefono 
                     <p-columnFilter type="text" field="telephone" display="menu" class="ml-auto"></p-columnFilter>
                     <p-sortIcon field="telephone"></p-sortIcon></th>
-                <th pSortableColumn="address">
+                <th pSortableColumn="address" style="min-width:12rem">
                     Correo 
                     <p-columnFilter type="text" field="email" display="menu" class="ml-auto"></p-columnFilter>
                     <p-sortIcon field="address"></p-sortIcon></th>
-                <th pSortableColumn="documentType" style="min-width:20px">
+                <th pSortableColumn="documentType" style="min-width:8rem">
                     Tipo de documento 
                     <p-columnFilter type="text" field="documentType" display="menu" class="ml-auto"></p-columnFilter>
                     <p-sortIcon field="documentType"></p-sortIcon></th>
-                <th pSortableColumn="documentNumber">
+                <th pSortableColumn="documentNumber" style="min-width:10rem">
                     Numero documento 
                     <p-columnFilter type="text" field="documentNumber" display="menu" class="ml-auto"></p-columnFilter>
                     <p-sortIcon field="documentNumber"></p-sortIcon></th>
-                <th pSortableColumn="emergencyNumber">
+                <th pSortableColumn="emergencyNumber" style="min-width:10rem">
                     Numero de emergencia 
                     <p-columnFilter type="text" field="emergencyNumber" display="menu" class="ml-auto"></p-columnFilter>
                     <p-sortIcon field="emergencyNumber"></p-sortIcon></th>
-                <th pSortableColumn="startDate">
+                <th pSortableColumn="startDate" style="min-width:10rem">
                     Fecha de inicio 
                     <p-columnFilter type="date" field="startDate" display="menu" class="ml-auto"></p-columnFilter>
                     <p-sortIcon field="startDate"></p-sortIcon></th>
-                <th pSortableColumn="finishDate">
+                <th pSortableColumn="finishDate" style="min-width:12rem">
                     Fecha de fin 
                     <p-columnFilter type="date" field="finishDate" display="menu" class="ml-auto"></p-columnFilter>
                     <p-sortIcon field="finishDate"></p-sortIcon></th>
-                <th pSortableColumn="medicalHistory">
-                    medicalHistory 
+                <th pSortableColumn="medicalHistory" style="min-width:12rem">
+                    Estado
                     <p-columnFilter type="text" field="medicalHistory" display="menu" class="ml-auto"></p-columnFilter>
                     <p-sortIcon field="medicalHistory"></p-sortIcon></th>
                 <th></th>
@@ -88,7 +88,10 @@
                 <td>{{cliente.emergencyNumber}}</td>
                 <td>{{cliente.startDate}}</td>
                 <td>{{cliente.finishDate}}</td>
-                <td>{{cliente.medicalHistory}}</td>
+                <td>
+                    <span *ngIf="cliente.missingDays > 0" [class]="'customer-badge status-activo'">Activo - {{cliente.missingDays}}</span>
+                    <span *ngIf="cliente.missingDays <= 0" [class]="'customer-badge status-inactivo'">Inactivo</span>
+                </td>
                 <td>
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editCliente(cliente)"></button>
                     <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteCliente(cliente)"></button>

@@ -11,7 +11,7 @@
     </p-toolbar>
 
     <p-table #dt [value]="entrenadores" [rows]="10" [paginator]="true" 
-    [globalFilterFields]="['name', 'telephone', 'address', 'documentType', 'documentNumber', 'emergencyNumber', 'startDate', 'finishDate', 'padece',]" [tableStyle]="{'min-width': '75rem'}"
+    [globalFilterFields]="['name', 'telephone', 'address', 'salary',]" [tableStyle]="{'min-width': '75rem'}"
         [(selection)]="selectedEntrenadores" [rowHover]="true" dataKey="id"
         currentPageReportTemplate="Mostrado {first} a {last} de {totalRecords} entradas" [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
@@ -45,22 +45,10 @@
                     <p-columnFilter type="text" field="email" display="menu" class="ml-auto"></p-columnFilter>
                     <p-sortIcon field="address"></p-sortIcon></th>
                 <th pSortableColumn="documentType" style="min-width:20px">
-                    Tipo de documento 
-                    <p-columnFilter type="text" field="documentType" display="menu" class="ml-auto"></p-columnFilter>
-                    <p-sortIcon field="documentType"></p-sortIcon></th>
-                <th pSortableColumn="documentNumber">
-                    Numero documento 
-                    <p-columnFilter type="text" field="documentNumber" display="menu" class="ml-auto"></p-columnFilter>
-                    <p-sortIcon field="documentNumber"></p-sortIcon></th>
-                <th pSortableColumn="emergencyNumber">
-                    Numero de emergencia 
-                    <p-columnFilter type="text" field="emergencyNumber" display="menu" class="ml-auto"></p-columnFilter>
-                    <p-sortIcon field="emergencyNumber"></p-sortIcon></th>
-                <th pSortableColumn="padece">
-                    Padece 
-                    <p-columnFilter type="text" field="padece" display="menu" class="ml-auto"></p-columnFilter>
-                    <p-sortIcon field="padece"></p-sortIcon></th>
-                <th></th>
+                    Salario
+                    <p-columnFilter type="text" field="salary" display="menu" class="ml-auto"></p-columnFilter>
+                    <p-sortIcon field="salary"></p-sortIcon></th>
+                <th style="min-width:20px"></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-entrenador>
@@ -75,10 +63,7 @@
                 <td>{{entrenador.lastname}}</td>
                 <td>{{entrenador.telephone}}</td>
                 <td>{{entrenador.address}}</td>
-                <td>{{entrenador.documentType}}</td>
-                <td>{{entrenador.documentNumber}}</td>
-                <td>{{entrenador.emergencyNumber}}</td>
-                <td>{{entrenador.padece}}</td>
+                <td>{{entrenador.salary}}</td>
                 <td>
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editEntrenador(entrenador)"></button>
                     <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteEntrenador(entrenador)"></button>
@@ -128,9 +113,9 @@
                             <small class="p-error" *ngIf="formEntrenador.get('telephone')?.hasError('required') && formEntrenador.get('telephone')?.touched">Telefono es requerido</small>       
                         </div>
                         <div class="col">
-                            <label for="emergencyNumber" class="col-form-label">Telefono de emergencia</label>
-                            <p-inputNumber id="emergencyNumber" formControlName="emergencyNumber"></p-inputNumber>
-                            <small class="p-error" *ngIf="formEntrenador.get('emergencyNumber')?.hasError('required') && formEntrenador.get('emergencyNumber')?.touched">Telefono de emergenia es requerido</small>
+                            <label for="emergencyNumber" class="col-form-label">Salario</label>
+                            <p-inputNumber id="salary" formControlName="salary"></p-inputNumber>
+                            <small class="p-error" *ngIf="formEntrenador.get('salary')?.hasError('required') && formEntrenador.get('salary')?.touched">El salario es requerido</small>
                         </div>
                     </div>
                 </div>
@@ -146,10 +131,6 @@
                     <p-inputNumber id="telephone" formControlName="documentNumber"></p-inputNumber>
                     <small class="p-error" *ngIf="formEntrenador.get('documentNumber')?.hasError('required') && formEntrenador.get('documentNumber')?.touched">El numero de documento es requerido</small>
                 </div>
-            </div>
-            <div class="row px-4">
-                <label for="padece" class="col-form-label">Padece</label>
-                <textarea pInputTextarea id="padece" formControlName="padece"></textarea>
             </div>
         </form>
 
